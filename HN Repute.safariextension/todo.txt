@@ -1,0 +1,24 @@
+The Interaction
+---------------
+
+
+Global
+
+* send list of names to server
+* send vote to server
+* get vote counts from server
+
+* really just sync things from server
+    * step one is to read everything from the server live
+    * setp two is to start caching some stuff locally. 
+
+
+Post-Script
+
+* scan the comments, get names
+* ask global for vote counts
+* add hook for voting
+    * send vote to global. 
+    * update count on dude?
+
+* get vote counts and display them for the people on the page.

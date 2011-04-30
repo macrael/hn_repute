@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="utf-8">
+  <script type="text/javascript" charset="utf-8">
+
+    safari.application.addEventListener("message", waitForMessage, true);
+
+    function waitForMessage(msgEvent){
+        var messageName = msgEvent.name;
+        var messageData = msgEvent.message;
+        var sendingPage = msgEvent.target.page
+
+        switch(messageName){
+            case "userList":
+                handleListOfUsers(messageData, sendingPage); 
+                break;
+
+            case "handleVote" :
+                handleVote(messageData);
+                break;
+            
+            default :
+                alert("Unknown Message!");
+        }
+
+    }
+
+    function handleListOfUsers(users, callbackPage){
+        // take the list of users
+        //ugly, but should work. Current username is prepeneded
+        sender = users.shift()
+        request_string = "?username=" + sender + "&user_list=" + users.join(",");
+        callbackPage.dispatchMessage("logger", request_string);
+        full_request = "http://localhost:8000/users" + request_string;
+
+        var xml = new XMLHttpRequest();
+        xml.open('GET', full_request);
+        xml.onreadystatechange=function() {
+            if (xml.readyState != 4){
+                alert("Error In Com");
+            }
+            
+            callbackPage.dispatchMessage("voteList", xml.responseText);
+        };
+        xml.send();
+
+    }
+
+    function handleVote(vote_hash){
+        // send something up to the server.
+    }
+
+    function initialize() {
+        console.log("WHAAAAAA");
+    }
+
+    initialize();
+
+  </script>
+  </head>
+  <body>
+  </body>
+</html>
