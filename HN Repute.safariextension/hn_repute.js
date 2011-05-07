@@ -12,7 +12,6 @@ function set_current_user()
 
 function get_visible_usernames()
 {
-
     var cheads = $(".comhead");
     var users = [];
 
@@ -25,8 +24,6 @@ function get_visible_usernames()
         username = temp.innerHTML;
         users.push(username);
     }
-
-    console.log(users);
 
     good_users = []
 
@@ -44,21 +41,13 @@ function get_visible_usernames()
         }
     }
 
-    console.log(good_users);
-
     return good_users;
 
 }
 
 function get_my_votes(){
-    console.log("WEOIFNWOIEFNWOENIFOWNFOEIFNOWENF");
-    console.log(safari);
-    console.log(safari.extension);
-    console.log(safari.extension.globalPage);
-    const global = safari.extension.globalPage.contentWindow;
 
     console.log("BEGGGIN");
-    global.initialize();
 
     console.log("ENDININNIG");
 
@@ -83,6 +72,25 @@ function get_my_votes(){
 
 }
 
+function setup_vote_hooks(){
+    console.log("SETTING UP SOME VOTE HOOKS");
+
+
+    links = #("a");
+
+    $(links).each( function (index) {
+        console.log("HELLO");
+        if ($(this).attr('id').match(/^up_.+$/)){
+            console.log("UPVOTE?");
+            console.log(this);
+            $(this).click( function() { 
+                console.log("clocked");
+                console.log(self.id);
+            });
+        }
+    });
+}
+
 function process_votes(votes){
 
     console.log("PREOC");
@@ -104,6 +112,8 @@ function initialize(){
 
     safari.self.tab.dispatchMessage("userList",user_list);
     console.log("just sent message");
+
+    setup_vote_hooks();
 
 }
 
@@ -139,6 +149,7 @@ safari.self.addEventListener("message", handleMessage, false);
 // figure out the user. For now just accept it.
 
 set_current_user();
+
 
 initialize();
 
